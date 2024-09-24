@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, StyleSheet, View, Image,Text} from "react-native";
+import { ScrollView, StyleSheet, View, Image, Text } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { Button } from "../../components/button";
 import { getProductById } from "../../services/product";
@@ -22,31 +22,31 @@ export default function Screen() {
         <SafeAreaView style={styles.container} >
             <Stack.Screen options={{ title: '' }} />
             <ScrollView style={styles.area}>
-              <Image
-               style={styles.img}
-               source={{uri: product.image}}
-               resizeMode="cover"
+                <Image
+                    style={styles.img}
+                    source={{ uri: product.image }}
+                    resizeMode="cover"
 
-              
-              />
-              <Text style={styles.title}> {product.title}</Text>
-              <Text  style= {styles.description}> {product.description}</Text>
-              <View style= {styles.priceArea}>
-                <Text style= {styles.price} > R$ {product.price.toFixed(2)}
 
-                </Text>
+                />
+                <Text style={styles.title}> {product.title}</Text>
+                <Text style={styles.description}> {product.description}</Text>
+                <View style={styles.priceArea}>
+                    <Text style={styles.price} > R$ {product.price.toFixed(2)}
+
+                    </Text>
                 </View>
-       
-              
+
+
             </ScrollView>
             <View style={styles.ButtonArea}
             >
                 <Button
                     title="comprar agora"
                     onPress={comprar}
-                   
+
                 />
-                 <Text style= {styles.price}>{product.price.toFixed(2)}</Text>
+                <Text style={styles.price}>{product.price.toFixed(2)}</Text>
             </View>
 
 
@@ -67,33 +67,33 @@ const styles = StyleSheet.create({
     ButtonArea: {
         padding: 10,
     },
-    img:{
+    img: {
         width: "100%",
-        height:250,
-        borderRadius: 10, 
-        marginBottom:20
+        height: 250,
+        borderRadius: 10,
+        marginBottom: 20
     },
-   title:{
-    fontSize:29,
-    fontWeight: 'bold',
-    marginBottom:10
-   },
-   description:{
-    fontSize: 15 ,
-    marginBottom:20,
-    color: '#555555'
-   },
+    title: {
+        fontSize: 29,
+        fontWeight: 'bold',
+        marginBottom: 10
+    },
+    description: {
+        fontSize: 15,
+        marginBottom: 20,
+        color: '#555555'
+    },
 
-   priceArea:{
-    padding:10,
-    borderRadius: 10,
-    backgroundColor:'#cccccc'
-   },
-   price:{
-fontSize: 22, 
-textAlign:'center'
-    
+    priceArea: {
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: '#cccccc'
+    },
+    price: {
+        fontSize: 22,
+        textAlign: 'center'
 
-   }
+
+    }
 });
 
