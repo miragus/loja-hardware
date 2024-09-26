@@ -16,7 +16,7 @@ export default function Screen(){
 
     return(
         <View style={styles.container}>
-            <Stack.Screen options={{title: category.title}}/>
+            <Stack.Screen options={{title: category.title, headerStyle:{backgroundColor:'#2E2E2E'}, headerTintColor:'#CCFFCC'}}/>
             <FlatList
                 data={products}
                 renderItem={({item}) => <ProductItem data={item}/>}
@@ -28,7 +28,8 @@ export default function Screen(){
 }
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        backgroundColor:'#2E2E2E'
     },
     list:{
         flex: 1,

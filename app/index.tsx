@@ -1,47 +1,66 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, StyleSheet,Text } from "react-native";
+import { Image, StyleSheet, Text, ImageBackground } from "react-native";
 import { Button } from "../components/button";
 import { router } from "expo-router";
 
-export default function Screen (){
-    const start = () =>{
+export default function Screen() {
+    const start = () => {
         router.replace('/home')
     }
 
-    return(
+    return (
         <SafeAreaView style={styles.container}>
-            <Image
-                source={require('../assets/hardware.png')}
-                style={styles.logo}
+            <ImageBackground
+                source={require('../assets/harwareBack.jpg')}
                 resizeMode="cover"
-            />
-            <Text style={styles.h1}>Bem-vindo à HardKores</Text>
-            <Text style={styles.h2}>Sua loja de hardwares predileta.</Text>
-            <Button
-                title="Comprar"
-                onPress={start}
-            />
+                style={styles.background}>
+                    <Image
+                    source={require('../assets/chip.png')}
+                    style={styles.logo}
+                    resizeMode="cover"
+                />
+
+                <Text style={styles.h1}>Bem-vindo à HardKores</Text>
+                <Text style={styles.h2}>Sua loja de hardwares predileta</Text>
+
+
+                
+                <Button
+                    title="INICIAR"
+                    onPress={start}
+                />
+            </ImageBackground>
+
         </SafeAreaView>
     );
 }
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
+    container: {
+        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    logo:{
+    background: {
+        justifyContent: 'center',
+        alignItems: "center",
+        width: '100%',
+        flex: 1
+    },
+    logo: {
         width: 200,
-        height: 200, 
-        marginBottom: 20
+        height: 200,
+        marginBottom: '20%',
     },
-    h1:{
-        fontSize: 22,
+    h1: {
+        fontSize: 26,
         fontWeight: 'bold',
-        marginBottom: 10
+        bottom: 40,
+        color: "#AAFFAA",
+        letterSpacing: 0.1,
     },
-    h2:{
+    h2: {
         fontSize: 16,
-        marginBottom: 10
+        color: "#AAFFAA",
+        bottom: 40
     }
 })

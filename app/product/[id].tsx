@@ -20,7 +20,11 @@ export default function Screen() {
 
     return (
         <SafeAreaView style={styles.container} >
-            <Stack.Screen options={{ title: '' }} />
+            <Stack.Screen options={{
+                title: 'A TERRA É PLANA',
+                headerStyle:{backgroundColor: '#2E2E2E'},
+                headerTintColor:'#CCFFCC' }}
+                />
             <ScrollView style={styles.area}>
                 <Image
                     style={styles.img}
@@ -32,7 +36,7 @@ export default function Screen() {
                 <Text style={styles.title}> {product.title}</Text>
                 <Text style={styles.description}> {product.description}</Text>
                 <View style={styles.priceArea}>
-                    <Text style={styles.price} > R$ {product.price.toFixed(2)}
+                    <Text style={styles.price}> R$ {product.price.toFixed(2)}
 
                     </Text>
                 </View>
@@ -42,11 +46,12 @@ export default function Screen() {
             <View style={styles.ButtonArea}
             >
                 <Button
-                    title="comprar agora"
+                    title="COMPRAR"
                     onPress={comprar}
 
                 />
-                <Text style={styles.price}>{product.price.toFixed(2)}</Text>
+                <Text style={styles.price}> R$ {product.price.toFixed(2)}</Text>
+
             </View>
 
 
@@ -57,6 +62,8 @@ export default function Screen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#2E2E2E',
+        justifyContent:'center',
     },
 
     area: {
@@ -76,12 +83,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 29,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        color:'#FFFFFF'
     },
     description: {
         fontSize: 15,
         marginBottom: 20,
-        color: '#555555'
+        color: '#FFFFFF'
     },
 
     priceArea: {
@@ -90,8 +98,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#cccccc'
     },
     price: {
-        fontSize: 22,
-        textAlign: 'center'
+        fontSize: 25,
+        textAlign: 'center',
+        color:'#FFFFFF'
 
 
     }

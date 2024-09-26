@@ -1,19 +1,19 @@
 import { Link } from "expo-router";
 import { Product } from "../types/product"
-import {Pressable, Text, StyleSheet, Image, View } from "react-native";
+import { Pressable, Text, StyleSheet, Image, View } from "react-native";
 
 type Props = {
     data: Product;
 }
 
-export const ProductItem = ({data}: Props) =>{
-    return(
+export const ProductItem = ({ data }: Props) => {
+    return (
         // rota dinamica
         <Link href={`/product/${data.id}`} asChild>
             <Pressable style={styles.container}>
                 <Image
                     style={styles.img}
-                    source={{uri: data.image}}
+                    source={{ uri: data.image }}
                     resizeMode="cover"
                 />
                 <View style={styles.info}>
@@ -26,33 +26,37 @@ export const ProductItem = ({data}: Props) =>{
     );
 }
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flexDirection: 'row',
         marginBottom: 20
     },
-    img:{
-        width: 100,
-        height: 100,
+    img: {
+        width: 120,
+        height: 120,
         borderRadius: 10,
         backgroundColor: "#CCCCCC",
-        marginRight: 20
+        marginRight: 20,
     },
-    info:{
+    info: {
         flex: 1
     },
-    title:{
+    title: {
         fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        color: "#FFFFFF"
     },
-    description:{
+    description: {
         fontSize: 13,
-        color: "#555555",
+        color: "#EEEEEE",
         marginBottom: 10
     },
-    price:{
+    price: {
         fontSize: 14,
         fontWeight: 'bold',
-        textAlign: 'right'
+        color: "#CCFFCC",
+        textAlign: 'center',
+        backgroundColor: "#222222",
+        borderRadius: 5,
     }
 })
