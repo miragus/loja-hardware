@@ -22,9 +22,10 @@ export default function Screen() {
         <SafeAreaView style={styles.container} >
             <Stack.Screen options={{
                 title: 'A TERRA É PLANA',
-                headerStyle:{backgroundColor: '#2E2E2E'},
-                headerTintColor:'#CCFFCC' }}
-                />
+                headerStyle: { backgroundColor: '#2E2E2E' },
+                headerTintColor: '#CCFFCC'
+            }}
+            />
             <ScrollView style={styles.area}>
                 <Image
                     style={styles.img}
@@ -41,18 +42,15 @@ export default function Screen() {
                     </Text>
                 </View>
 
-
-            </ScrollView>
-            <View style={styles.ButtonArea}
-            >
                 <Button
                     title="COMPRAR"
                     onPress={comprar}
 
                 />
-                <Text style={styles.price}> R$ {product.price.toFixed(2)}</Text>
 
-            </View>
+            </ScrollView>
+                
+
 
 
         </SafeAreaView>
@@ -63,7 +61,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2E2E2E',
-        justifyContent:'center',
+        justifyContent: 'center',
     },
 
     area: {
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
         fontSize: 29,
         fontWeight: 'bold',
         marginBottom: 10,
-        color:'#FFFFFF'
+        color: '#FFFFFF'
     },
     description: {
         fontSize: 15,
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 25,
         textAlign: 'center',
-        color:'#FFFFFF'
+        color: '#FFFFFF'
 
 
     }
