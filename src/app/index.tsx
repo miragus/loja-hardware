@@ -1,21 +1,27 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image, StyleSheet, Text, ImageBackground } from "react-native";
-import { Button } from "../components/button";
+import { Button } from "../../components/button";
 import { router } from "expo-router";
+import { useState } from "react";
 
 export default function Screen() {
+
+    
+
+
+
     const start = () => {
         router.replace('/home')
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <ImageBackground
-                source={require('../assets/harwareBack.jpg')}
+            <ImageBackground 
+                source={require('../../assets/harwareBack.jpg')}
                 resizeMode="cover"
                 style={styles.background}>
                     <Image
-                    source={require('../assets/chip.png')}
+                    source={require('../../assets/chip.png')}
                     style={styles.logo}
                     resizeMode="cover"
                 />

@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+ import { Link } from "expo-router";
 import { Product } from "../types/product"
 import { Pressable, Text, StyleSheet, Image, View } from "react-native";
 

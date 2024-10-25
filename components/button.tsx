@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 200,
         bottom: 70,
-        justifyContent: "center"
+        justifyContent: "center" 
     },
     buttonText: {
         fontSize: 16,

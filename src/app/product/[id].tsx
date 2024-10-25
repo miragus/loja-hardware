@@ -1,8 +1,8 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, StyleSheet, View, Image, Text } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import { Button } from "../../components/button";
-import { getProductById } from "../../services/product";
+import { Button } from "../../../components/button";
+import { getProductById } from "../../../services/product";
 
 
 export default function Screen() {

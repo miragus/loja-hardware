@@ -42,6 +42,13 @@ export default function TabLayout() {
                     tabBarIcon: ({ color }) => <FontAwesome name="sign-in" size={24} color={color}/>
                 }}
             />
+            <Tabs.Screen
+                name="productRegister"
+                options={{
+                    title: 'Registro',
+                    tabBarIcon: ({ color }) => <FontAwesome name="sign-in" size={24} color={color}/>
+                }}
+            />
         </Tabs>
     );
 }

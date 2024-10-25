@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { getAllProducts, getProductByCategory } from "../../../services/product";
-import { ProductItem } from "../../../components/product-item";
+import { getAllProducts, getProductByCategory } from "../../../../services/product";
+import { ProductItem } from "../../../../components/product-item";
 import { router, Stack, useLocalSearchParams } from "expo-router";
-import { getCategoryById } from "../../../services/category";
+import { getCategoryById } from "../../../../services/category";
 
 export default function Screen(){
     const {id} = useLocalSearchParams();

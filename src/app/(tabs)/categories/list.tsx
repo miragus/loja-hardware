@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text, FlatList } from "react-native";
-import { getAllCategories } from "../../../services/category";
-import { CategoryItem } from "../../../components/category-item";
+import { getAllCategories } from "../../../../services/category";
+import { CategoryItem } from "../../../../components/category-item";
 
 export default function Screen() {
     const categories = getAllCategories();
