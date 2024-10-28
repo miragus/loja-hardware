@@ -88,7 +88,7 @@ export default function ProductRegister() {
                 <Button title="Salvar" onPress={create} />
             </ScrollView>
 
-            {products.length === 0 ? (
+            {/* {products.length === 0 ? (
                 <Text>Nenhum produto encontrado</Text>
             ) : (
                 <FlatList
@@ -96,7 +96,7 @@ export default function ProductRegister() {
                     keyExtractor={(item) => String(item.id)}
                     renderItem={({ item }) => <ProductItem data={item} />}
                 />
-            )}
+            )} */}
         </SafeAreaView>
     );
 }
