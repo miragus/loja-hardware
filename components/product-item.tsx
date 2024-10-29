@@ -1,20 +1,28 @@
- import { Link } from "expo-router";
-import { Product } from "../types/product"
+import { Link } from "expo-router";
+import { Product } from "../types/product";
 import { Pressable, Text, StyleSheet, Image, View } from "react-native";
+import { useState } from "react";
 
 type Props = {
     data: Product;
 }
 
 export const ProductItem = ({ data }: Props) => {
+    const [imageUri, setImageUri] = useState(data.image); 
+
     return (
-        // rota dinamica
         <Link href={`/product/${data.id}`} asChild>
-            <Pressable style={styles.container}>
+            <Pressable
+                style={({ pressed }) => [
+                    styles.container,
+                    { opacity: pressed ? 0.8 : 1 },
+                ]}
+            >
                 <Image
                     style={styles.img}
-                    source={{ uri: data.image }}
+                    source={{ uri: imageUri }}
                     resizeMode="cover"
+                    onError={() => setImageUri("url_fallback")} 
                 />
                 <View style={styles.info}>
                     <Text style={styles.title}>{data.title}</Text>
@@ -25,10 +33,11 @@ export const ProductItem = ({ data }: Props) => {
         </Link>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        marginBottom: 20
+        marginBottom: 20,
     },
     img: {
         width: 120,
@@ -38,18 +47,18 @@ const styles = StyleSheet.create({
         marginRight: 20,
     },
     info: {
-        flex: 1
+        flex: 1,
     },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 10,
-        color: "#FFFFFF"
+        color: "#FFFFFF",
     },
     description: {
         fontSize: 13,
         color: "#EEEEEE",
-        marginBottom: 10
+        marginBottom: 10,
     },
     price: {
         fontSize: 14,
@@ -58,5 +67,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: "#222222",
         borderRadius: 5,
-    }
-})
+        padding: 5,
+        alignSelf: 'flex-start',
+    },
+});

@@ -18,7 +18,7 @@ export default function Screen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:'#303030'
+        backgroundColor: '#303030'
     },
     list: {
         flex: 1,

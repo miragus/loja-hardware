@@ -1,20 +1,20 @@
-import { Pressable, Text, StyleSheet, Image,View } from "react-native";
+import { Pressable, Text, StyleSheet, Image, View } from "react-native";
 import { Category } from "../types/category"
 import { router } from "expo-router";
 
-type Props ={
+type Props = {
     data: Category;
 }
 
-export const CategoryItem = ({data}: Props) =>{
-    const click =() =>{
+export const CategoryItem = ({ data }: Props) => {
+    const click = () => {
 
         router.navigate(`/categories/${data.id}`)
     }
-    return(
+    return (
         <Pressable onPress={click} style={styles.container}>
             <Image
-                source={{uri: data.cover}}
+                source={{ uri: data.cover }}
                 resizeMode="cover"
                 style={styles.image}
             />
@@ -26,30 +26,30 @@ export const CategoryItem = ({data}: Props) =>{
     );
 }
 const styles = StyleSheet.create({
-    container:{
+    container: {
         margin: 10,
         backgroundColor: "#333333",
         borderRadius: 10
     },
-    image:{
+    image: {
         width: '100%',
         height: 150,
         borderRadius: 10
     },
-    bg:{
+    bg: {
         height: 150,
         backgroundColor: "#000000",
         opacity: 0.6,
         borderRadius: 10,
         marginTop: -150
     },
-    box:{
+    box: {
         height: 150,
         marginTop: -150,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    title:{
+    title: {
         color: '#FFFFFF',
         fontSize: 24
     }

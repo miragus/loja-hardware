@@ -1,111 +1,145 @@
-import { Text, View, SafeAreaView, StyleSheet, Alert, Button, FlatList, ScrollView } from "react-native";
-import { Input } from "../../../components/input";
-import { useProductDatabase, ProductDatabase } from "../../database/useProductDatabase";
-import { useEffect, useState } from "react";
-import { ProductItem } from "../../../components/product-item";
-
-export default function ProductRegister() {
-    const [id, setId] = useState('');
+import { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import '../../../firebase';
+const App = () => {
     const [idCategory, setIdCategory] = useState('');
     const [image, setImage] = useState('');
     const [title, setTitle] = useState('');
-    const [search, setSearch] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [products, setProducts] = useState<ProductDatabase[]>([]);
 
-    const productDatabase = useProductDatabase();
 
-    async function create() {
+    const handle = async () => {
+        if (!idCategory || !image || !title || !description || !price) {
+            alert("Todos os campos devem ser preenchidos!");
+            return;
+        }
+
         try {
-            if (isNaN(Number(id))) {
-                return Alert.alert("Id", "O Id precisa ser um número!");
-            }
-            if (isNaN(Number(idCategory))) {
-                return Alert.alert("IdCategory", "O IdCategory precisa ser um número!");
-            }
-            if (isNaN(Number(price))) {
-                return Alert.alert("Price", "O Price precisa ser um número!");
+            const numericPrice = parseFloat(price);
+            const numericCategory = parseFloat(idCategory);
+
+            if (isNaN(numericPrice) || isNaN(numericCategory)) {
+                alert("ID da categoria e preço devem ser números válidos!");
+                return;
             }
 
-            // Cria o novo produto no banco de dados
-            const response = await productDatabase.create({
-                id: Number(id),
-                idCategory: Number(idCategory),
-                image,
-                title,
-                description,
-                price: Number(price),
+            const novoProduto = await firebase.firestore().collection("Products").add({
+                idCategory: numericCategory,
+                image: image,
+                title: title,
+                description: description,
+                price: numericPrice
             });
 
-            // Adiciona o novo produto ao contexto para atualização automática da FlatList
-            const newProduct = {
-                id: Number(id),
-                idCategory: Number(idCategory),
-                image,
-                title,
-                description,
-                price: Number(price),
-            };
-            Alert.alert("Produto cadastrado com sucesso!");
+            alert("Produto registrado com sucesso! ID: " + novoProduto.id);
 
-            // Limpa os campos
-            setId('');
+            //esvazia os campos apos registrar produto
             setIdCategory('');
             setImage('');
             setTitle('');
             setDescription('');
             setPrice('');
-        } catch (error) {
-            console.log(error);
-            Alert.alert("Erro", "Não foi possível cadastrar o produto.");
-        }
-    }
 
-    async function list() {
-        try {
-            const response = await productDatabase.searchByName(search);
-            setProducts(response);
         } catch (error) {
-            console.log(error);
-            Alert.alert("Erro", "Ocorreu um erro durante a listagem dos produtos.");
+            console.error("Erro ao registrar produto:", error);
+            alert("Ocorreu um erro ao tentar registrar produto.");
         }
-    }
+    };
 
-    useEffect(() => {
-        list();
-    }, [search]);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <Input placeholder="Id do produto" onChangeText={setId} value={id} />
-                <Input placeholder="Id por categoria" onChangeText={setIdCategory} value={idCategory} />
-                <Input placeholder="Imagem" onChangeText={setImage} value={image} />
-                <Input placeholder="Nome" onChangeText={setTitle} value={title} />
-                <Input placeholder="Descrição" onChangeText={setDescription} value={description} />
-                <Input placeholder="Preço" onChangeText={setPrice} value={price} />
-                <Button title="Salvar" onPress={create} />
-            </ScrollView>
+        <View style={styles.container}>
+            <View style={styles.form}>
+                <Text style={styles.title}>Criar Produto</Text>
 
-            {/* {products.length === 0 ? (
-                <Text>Nenhum produto encontrado</Text>
-            ) : (
-                <FlatList
-                    data={products}
-                    keyExtractor={(item) => String(item.id)}
-                    renderItem={({ item }) => <ProductItem data={item} />}
+                <TextInput
+                    style={styles.input}
+                    placeholder='Id de categoria'
+                    onChangeText={text => setIdCategory(text)}
+                    value={idCategory}
                 />
-            )} */}
-        </SafeAreaView>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Nome'
+                    onChangeText={text => setTitle(text)}
+                    value={title}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Imagem'
+                    onChangeText={text => setImage(text)}
+                    value={image}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Descrição'
+                    onChangeText={text => setDescription(text)}
+                    value={description}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Preço'
+                    onChangeText={text => setPrice(text)}
+                    value={price}
+                />
+            </View>
+            <View style={styles.buttons}>
+                <Pressable style={styles.button} onPress={handle}>
+                    <Text style={styles.buttonText}>Criar</Text>
+                </Pressable>
+            </View>
+        </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
         justifyContent: 'center',
-        padding: 32,
-        gap: 16,
+        paddingVertical: 100,
+        gap: 40
     },
+    form: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: "100%",
+    },
+    title: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    input: {
+        width: '65%',
+        height: 40,
+        marginVertical: 10,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+    },
+    buttons: {
+        width: '65%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    button: {
+        backgroundColor: '#007AFF',
+        justifyContent: "center",
+        borderRadius: 5,
+        alignItems: 'center',
+        width: "35%",
+        aspectRatio: 2.10
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+    }
 });
+
+export default App;

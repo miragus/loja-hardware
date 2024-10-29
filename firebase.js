@@ -1,16 +1,16 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+import firebase from "firebase/compat";
+import "firebase/compat/firestore"
 
 let firebaseConfig = {
-    apiKey: "AIzaSyCieM0KbN-wDvnsWdUaQfLrAlPRolpB87I",
-    authDomain: "todoreactnative-f7f29.firebaseapp.com",
-    projectId: "todoreactnative-f7f29",
-    storageBucket: "todoreactnative-f7f29.appspot.com",
-    messagingSenderId: "802385229328",
-    appId: "1:802385229328:web:70e7d252e5d31d6257bc95"
+  apiKey: "AIzaSyDxNIK2Aou1gM26-3XCU2l6XOQFO6A4fdQ",
+  authDomain: "hardwares-db5ef.firebaseapp.com",
+  projectId: "hardwares-db5ef",
+  storageBucket: "hardwares-db5ef.appspot.com",
+  messagingSenderId: "131397816308",
+  appId: "1:131397816308:web:7117a19b0d574d8d93b3a1"
 };
 
-if(!firebase.apps.length){ //deixa uma rota
+if (!firebase.apps.length) {
   console.log(`Conectando...  Status:${firebase.apps.length}`);
   firebase.initializeApp(firebaseConfig);
   console.log(`Conectado  Status:${firebase.apps.length}`);
