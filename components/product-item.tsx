@@ -1,3 +1,4 @@
+// ProductItem.tsx
 import { Link } from "expo-router";
 import { Product } from "../types/product";
 import { Pressable, Text, StyleSheet, Image, View } from "react-native";
@@ -15,9 +16,10 @@ export const ProductItem = ({ data }: Props) => {
             <Pressable
                 style={({ pressed }) => [
                     styles.container,
-                    { opacity: pressed ? 0.8 : 1 },
+                    { opacity: pressed ? 0.9 : 1 },
                 ]}
             >
+                <View style={{height: 1, width: '120%', backgroundColor:'#CCCCCC', margin: 10, right:25}}/>
                 <Image
                     style={styles.img}
                     source={{ uri: imageUri }}
@@ -26,8 +28,12 @@ export const ProductItem = ({ data }: Props) => {
                 />
                 <View style={styles.info}>
                     <Text style={styles.title}>{data.title}</Text>
-                    <Text style={styles.description}>{data.description}</Text>
-                    <Text style={styles.price}>R$ {data.price.toFixed(2)}</Text>
+                    <Text style={styles.description} numberOfLines={2} ellipsizeMode="tail">
+                        {data.description}
+                    </Text>
+                    <View style={styles.priceContainer}>
+                        <Text style={styles.price}>R$ {data.price.toFixed(2)}</Text>
+                    </View>
                 </View>
             </Pressable>
         </Link>
@@ -36,38 +42,37 @@ export const ProductItem = ({ data }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        marginBottom: 20,
+        flex:1
     },
     img: {
         width: 120,
         height: 120,
-        borderRadius: 10,
-        backgroundColor: "#CCCCCC",
-        marginRight: 20,
+        borderRadius: 12,
+        backgroundColor: "#AAAAAA",
     },
     info: {
-        flex: 1,
+        justifyContent: 'center',
     },
     title: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10,
         color: "#FFFFFF",
     },
     description: {
-        fontSize: 13,
-        color: "#EEEEEE",
+        fontSize: 14,
+        color: "#DDDDDD",
         marginBottom: 10,
     },
-    price: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: "#CCFFCC",
-        textAlign: 'center',
-        backgroundColor: "#222222",
-        borderRadius: 5,
-        padding: 5,
+    priceContainer: {
+        backgroundColor: "#1E1E1E",
+        paddingVertical: 6,
+        paddingHorizontal: 10,
+        borderRadius: 6,
         alignSelf: 'flex-start',
+    },
+    price: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: "#A8FFB2",
     },
 });

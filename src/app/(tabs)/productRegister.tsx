@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import '../../../firebase';
+import { useRouter } from 'expo-router';
+
+
+
+
 const App = () => {
     const [idCategory, setIdCategory] = useState('');
     const [image, setImage] = useState('');
@@ -10,6 +15,7 @@ const App = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
 
+    const router = useRouter();
 
     const handle = async () => {
         if (!idCategory || !image || !title || !description || !price) {
@@ -90,7 +96,14 @@ const App = () => {
                 <Pressable style={styles.button} onPress={handle}>
                     <Text style={styles.buttonText}>Criar</Text>
                 </Pressable>
+
+
+                <Pressable style={styles.button} onPress={() => router.push("./lista")}>
+                    <Text style={styles.buttonText}>Ver lista</Text>
+                </Pressable>
             </View>
+
+
         </View>
     );
 };

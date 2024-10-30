@@ -2,136 +2,153 @@ import { useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, StyleSheet, Text, View, TextInput, Alert } from 'react-native';
 import firebase from '../../../firebase';
 import { useRouter } from 'expo-router';
-import { ProductItem } from '../../../components/product-item';
+import { ListItem } from '../../../components/product-list';
 
 const Listagem = () => {
-    const [idCategory, setIdCategory] = useState('');
-    const [image, setImage] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0); // Alterado para 0
-    const [products, setProducts] = useState([]);
-    const [editId, setEditId] = useState("");
-    let [editState, setEditState] = useState("none");
-    const router = useRouter();
+  const [idCategory, setIdCategory] = useState('');
+  const [image, setImage] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [editId, setEditId] = useState("");
+  let [editState, setEditState] = useState("none");
+  const router = useRouter();
 
-    useEffect(() => {
-        const unsubscribe = firebase.firestore().collection('Products').onSnapshot((snapshot) => {
-            const data = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setProducts(data);
-        });
-        return () => unsubscribe();
-    }, []);
+  useEffect(() => {
+    const unsubscribe = firebase.firestore().collection('Products').onSnapshot((snapshot) => {
+      const data = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setProducts(data);
+    });
+    return () => unsubscribe();
+  }, []);
 
-    const excluirProduto = (id) => {
-        Alert.alert(
-            "Confirmação",
-            "Tem certeza de que deseja excluir este produto?",
-            [
-                { text: "Cancelar", style: "cancel" },
-                { text: "Excluir", onPress: () => firebase.firestore().collection('Products').doc(id).delete() }
-            ]
-        );
-    };
-
-    const atualizarProduto = (id, dados) => {
-        if (!dados.idCategory || !dados.image || !dados.title || !dados.description || isNaN(dados.price)) {
-            // Exibir um aviso ou retornar
-            return;
-        }
-        firebase.firestore().collection('Products').doc(id).update(dados);
-        closeEdit();
-    };
-
-    const showEdit = (id) => {
-        setEditState("flex");
-        setEditId(id);
-    };
-
-    const closeEdit = () => {
-        setEditState("none");
-        setEditId("");
-    };
-
-    const renderProduto = ({ item }) => (
-        <View style={styles.Produto}>
-            <ProductItem data={item} />
-            <View style={styles.acoes}>
-                <Pressable onPress={() => showEdit(item.id)}>
-                    <Image style={styles.edit} source={require('../../../assets/pencil.png')} />
-                </Pressable>
-                <Pressable onPress={() => excluirProduto(item.id)}>
-                    <Image style={styles.trash} source={require('../../../assets/trash.png')} />
-                </Pressable>
-            </View>
-        </View>
+  const deleteProduct = (id) => {
+    Alert.alert(
+      "Confirmação",
+      "Tem certeza de que deseja excluir este produto?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Excluir", onPress: () => firebase.firestore().collection('Products').doc(id).delete() }
+      ]
     );
+  };
 
-    const editBox = () => (
-        <View style={[styles.editContainer, { display: editState }]}>
-            <View style={styles.editBox}>
-                <View style={styles.editTitle}>
-                    <Text style={styles.titletext}>Editar</Text>
-                </View>
-                <View style={styles.editform}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Id da categoria'
-                        onChangeText={text => setIdCategory(text)}
-                        value={idCategory}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='URL da imagem'
-                        onChangeText={text => setImage(text)}
-                        value={image}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Nome'
-                        onChangeText={text => setTitle(text)}
-                        value={title}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Descrição'
-                        onChangeText={text => setDescription(text)}
-                        value={description}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Preço'
-                        onChangeText={text => setPrice(parseFloat(text))} // Convertendo para número
-                        value={price.toString()} // Convertendo para string para exibição
-                    />
-                </View>
-                <View style={styles.editButtons}>
-                    <Pressable style={styles.editButton} onPress={closeEdit}>
-                        <Text style={styles.editButtonText}>Voltar</Text>
-                    </Pressable>
-                    <Pressable style={styles.editButton} onPress={() => atualizarProduto(editId, { idCategory, image, title, description, price })}>
-                        <Text style={styles.editButtonText}>Editar</Text>
-                    </Pressable>
-                </View>
-            </View>
-        </View>
-    );
+  
+  const updateProduct = (id, dados) => {
+    if (!dados.idCategory || !dados.image || !dados.title || !dados.description || isNaN(dados.price)) {
+      Alert.alert("Aviso", "Por favor, preencha todos os campos corretamente.");
+      return;
+    }
+  
+    firebase.firestore().collection('Products').doc(id).update(dados)
+      .then(() => Alert.alert("Sucesso", "Produto atualizado com sucesso!"))
+      .catch(error => Alert.alert("Erro", error.message));
+    
+    closeEdit();
+  };
 
-    return (
-        <View style={styles.container}>
-            {editBox()}
-            <Text style={styles.title}>Lista de Usuários</Text>
-            <FlatList
-                data={products}
-                renderItem={renderProduto} // Usando a função definida
-                keyExtractor={item => item.id.toString()}
-                contentContainerStyle={styles.list}
-            />
-            <Pressable onPress={() => router.push("/")} style={styles.button}>
-                <Text style={styles.buttonText}>Voltar</Text>
-            </Pressable>
+  const showEdit = (id) => {
+    setEditState("flex");
+    setEditId(id);
+  };
+
+  const closeEdit = () => {
+    setEditState("none");
+    setEditId("");
+  };
+
+  const renderProduct = ({ item }) => (
+    <View style={styles.produto}>
+      <ListItem data={item} />
+      <View style={styles.acoes}>
+
+
+        <Pressable onPress={() => showEdit(item.id)}>
+          <Image style={styles.edit} source={require('../../../assets/pencil.png')} />
+        </Pressable>
+        <Pressable onPress={() => deleteProduct(item.id)}>
+          <Image style={styles.trash} source={require('../../../assets/trash.png')} />
+        </Pressable>
+      </View>
+    </View>
+  );
+
+  const editBox = () => (
+    <View style={[styles.editContainer, { display: editState }]}>
+      <View style={styles.editBox}>
+        <View style={styles.editTitle}>
+          <Text style={styles.titletext}>Editar</Text>
         </View>
-    );
+        <View style={styles.editform}>
+          <TextInput
+            style={styles.input}
+            placeholder="Id da categoria"
+            onChangeText={text => setIdCategory(text)}
+            value={idCategory}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="URL da imagem"
+            onChangeText={text => setImage(text)}
+            value={image}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Nome"
+            onChangeText={text => setTitle(text)}
+            value={title}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Descrição"
+            onChangeText={text => setDescription(text)}
+            value={description}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Preço"
+            keyboardType="numeric"
+            onChangeText={text => setPrice(text)}
+            value={price.toString()}
+          />
+        </View>
+        <View style={styles.editButtons}>
+          <Pressable style={styles.editButton} onPress={closeEdit}>
+            <Text style={styles.editButtonText}>Voltar</Text>
+          </Pressable>
+          <Pressable 
+            style={styles.editButton} 
+            onPress={() => updateProduct(editId, {
+              idCategory, 
+              image, 
+              title, 
+              description, 
+              price: parseFloat(price) || 0
+            })}
+          >
+            <Text style={styles.editButtonText}>Editar</Text>
+          </Pressable>
+        </View>
+      </View>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      {editBox()}
+      <Text style={styles.title}>Lista de Produtos</Text>
+      <FlatList
+        data={products}
+        renderItem={renderProduct}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
+      />
+      <Pressable onPress={() => router.push("../productRegister")} style={styles.button}>
+        <Text style={styles.buttonText}>Voltar</Text>
+      </Pressable>
+    </View>
+  );
 };
 
 
@@ -157,35 +174,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
-  Produto: {
-    display:"flex",
+  produto: {
+    display: "flex",
     flexDirection: "row",
     backgroundColor: '#eee',
     padding: 10,
     marginVertical: 5,
     width: '90%',
+    height: 70,
     borderRadius: 5,
     alignItems: 'flex-start',
-    aspectRatio: 5,
     justifyContent: "space-between"
   },
   variaveis: {
     height: "100%",
     gap: 5,
   },
-  nome: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  cpf: {
-    fontSize: 16,
-  },
+ 
   acoes: {
     height: "100%",
     gap: 5,
   },
   edit: {
-    height: 20,
+    height: 22,
     width: 20,
 
   },
@@ -235,7 +246,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  editButton:{
+  editButton: {
     backgroundColor: '#007AFF',
     justifyContent: "center",
     borderRadius: 5,

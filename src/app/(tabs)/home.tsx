@@ -1,6 +1,9 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+
+import { View, StyleSheet, FlatList } from "react-native";
 import { getAllProducts } from "../../../services/product";
 import { ProductItem } from "../../../components/product-item";
+
+
 
 export default function Screen() {
     const products = getAllProducts();
@@ -10,19 +13,19 @@ export default function Screen() {
                 data={products}
                 renderItem={({ item }) => <ProductItem data={item} />}
                 keyExtractor={item => item.id.toString()}
-                style={styles.list}
-            />
+                contentContainerStyle={styles.listContent}
+                />
+            
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#303030'
+        backgroundColor: '#303030',
     },
-    list: {
-        flex: 1,
-        width: '100%',
+    listContent: {
         padding: 20,
     }
-})
+});
