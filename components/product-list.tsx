@@ -18,6 +18,7 @@ export const ListItem = ({ data }: Props) => {
                     { opacity: pressed ? 0.8 : 1 },
                 ]}
             >
+                
                 <View style={{width: '100%', flexDirection: 'row', alignItems:'center'}}>
                     <Image
                     style={styles.img}

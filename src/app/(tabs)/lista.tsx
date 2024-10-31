@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, StyleSheet, Text, View, TextInput, Alert } from 'react-native';
-import firebase from '../../../firebase';
+import { subscribeToProducts } from '../../../types/product';
 import { useRouter } from 'expo-router';
 import { ListItem } from '../../../components/product-list';
+import firebase from 'firebase/compat';
 
 const Listagem = () => {
   const [idCategory, setIdCategory] = useState('');
@@ -12,14 +13,11 @@ const Listagem = () => {
   const [price, setPrice] = useState(0);
   const [products, setProducts] = useState([]);
   const [editId, setEditId] = useState("");
-  let [editState, setEditState] = useState("none");
+  const [editState, setEditState] = useState("none");
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = firebase.firestore().collection('Products').onSnapshot((snapshot) => {
-      const data = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setProducts(data);
-    });
+    const unsubscribe = subscribeToProducts(setProducts);
     return () => unsubscribe();
   }, []);
 
@@ -34,7 +32,6 @@ const Listagem = () => {
     );
   };
 
-  
   const updateProduct = (id, dados) => {
     if (!dados.idCategory || !dados.image || !dados.title || !dados.description || isNaN(dados.price)) {
       Alert.alert("Aviso", "Por favor, preencha todos os campos corretamente.");
@@ -49,8 +46,16 @@ const Listagem = () => {
   };
 
   const showEdit = (id) => {
-    setEditState("flex");
-    setEditId(id);
+    const product = products.find((prod) => prod.id === id);
+    if (product) {
+      setIdCategory(product.idCategory);
+      setImage(product.image);
+      setTitle(product.title);
+      setDescription(product.description);
+      setPrice(product.price);
+      setEditState("flex");
+      setEditId(id);
+    }
   };
 
   const closeEdit = () => {
@@ -62,8 +67,6 @@ const Listagem = () => {
     <View style={styles.produto}>
       <ListItem data={item} />
       <View style={styles.acoes}>
-
-
         <Pressable onPress={() => showEdit(item.id)}>
           <Image style={styles.edit} source={require('../../../assets/pencil.png')} />
         </Pressable>
@@ -149,9 +152,7 @@ const Listagem = () => {
       </Pressable>
     </View>
   );
-};
-
-
+};  
 
 const styles = StyleSheet.create({
   container: {
@@ -190,7 +191,6 @@ const styles = StyleSheet.create({
     height: "100%",
     gap: 5,
   },
- 
   acoes: {
     height: "100%",
     gap: 5,
@@ -198,7 +198,6 @@ const styles = StyleSheet.create({
   edit: {
     height: 22,
     width: 20,
-
   },
   trash: {
     height: 25,

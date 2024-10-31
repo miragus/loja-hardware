@@ -19,7 +19,7 @@ export const ProductItem = ({ data }: Props) => {
                     { opacity: pressed ? 0.9 : 1 },
                 ]}
             >
-                <View style={{height: 1, width: '120%', backgroundColor:'#CCCCCC', margin: 10, right:25}}/>
+                <View style={{padding: 20}}>
                 <Image
                     style={styles.img}
                     source={{ uri: imageUri }}
@@ -34,7 +34,10 @@ export const ProductItem = ({ data }: Props) => {
                     <View style={styles.priceContainer}>
                         <Text style={styles.price}>R$ {data.price.toFixed(2)}</Text>
                     </View>
+
                 </View>
+                </View>
+                
             </Pressable>
         </Link>
     );
@@ -42,7 +45,7 @@ export const ProductItem = ({ data }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1
+        flex:1,
     },
     img: {
         width: 120,
