@@ -1,21 +1,32 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, StyleSheet, View, Image, Text } from "react-native";
-import { Stack, router, useLocalSearchParams } from "expo-router";
-import { Button } from "../../../components/button";
-import { getProductById } from "../../../services/product";
+// [id].tsx
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, Image, Text, StyleSheet, View } from 'react-native';
+import { Button } from '../../../components/button';
+import { useRoute } from '@react-navigation/native';
+import { fetchProductById } from '../../../services/product';
+import { Stack } from 'expo-router';
 
+export default function ProductDetails() {
+    const route = useRoute();
+    const { id } = route.params; // Obtém o ID do produto da rota
+    const [product, setProduct] = useState(null);
 
-export default function Screen() {
-    const { id } = useLocalSearchParams();
-    const idProduct = parseInt(id as string)
-
-    const product = getProductById(idProduct);
-    if (!product) return router.back;
-
+    useEffect(() => {
+        // Busca os detalhes do produto usando o ID
+        const getProduct = async () => {
+            const fetchedProduct = await fetchProductById(id);
+            setProduct(fetchedProduct);
+        };
+        getProduct();
+    }, [id]);
 
     const comprar = () => {
-        alert("você clicou no item " + product.title);
+        // Função para lidar com a compra do produto
+        alert('Produto comprado!');
+    };
 
+    if (!product) {
+        return <Text>Carregando...</Text>; // Exibe um carregando enquanto os detalhes do produto são buscados
     }
 
     return (
@@ -103,4 +114,3 @@ const styles = StyleSheet.create({
 
     }
 });
-

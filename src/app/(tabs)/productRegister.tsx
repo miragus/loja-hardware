@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
-import firebase from '../../../firebase';
+import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import '../../../firebase';
 import { useRouter } from 'expo-router';
@@ -24,8 +24,9 @@ const App = () => {
         }
 
         try {
-            const numericPrice = parseFloat(price);
-            const numericCategory = parseFloat(idCategory);
+            const numericPrice = parseFloat(price.trim());
+            const numericCategory = parseFloat(idCategory.trim());
+
 
             if (isNaN(numericPrice) || isNaN(numericCategory)) {
                 alert("ID da categoria e preço devem ser números válidos!");
@@ -41,6 +42,7 @@ const App = () => {
             });
 
             alert("Produto registrado com sucesso! ID: " + novoProduto.id);
+            router.push("../../lista/lista");
 
             //esvazia os campos apos registrar produto
             setIdCategory('');
@@ -75,7 +77,7 @@ const App = () => {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Imagem'
+                    placeholder='URL da imagem'
                     onChangeText={text => setImage(text)}
                     value={image}
                 />
@@ -87,7 +89,7 @@ const App = () => {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Preço'
+                    placeholder='Preço (ex: 19.99)'
                     onChangeText={text => setPrice(text)}
                     value={price}
                 />
@@ -98,7 +100,7 @@ const App = () => {
                 </Pressable>
 
 
-                <Pressable style={styles.button} onPress={() => router.push("./lista")}>
+                <Pressable style={styles.button} onPress={() => router.push("../../lista/lista")}>
                     <Text style={styles.buttonText}>Ver lista</Text>
                 </Pressable>
             </View>

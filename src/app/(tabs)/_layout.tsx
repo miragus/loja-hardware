@@ -46,7 +46,7 @@ export default function TabLayout() {
                 name="productRegister"
                 options={{
                     title: 'Registro',
-                    tabBarIcon: ({ color }) => <FontAwesome name="sign-in" size={24} color={color}/>
+                    tabBarIcon: ({ color }) => <FontAwesome name="upload" size={24} color={color} />
                 }}
             />
         </Tabs>

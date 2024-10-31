@@ -4,11 +4,9 @@ import { Product } from "../types/product";
 import { Pressable, Text, StyleSheet, Image, View } from "react-native";
 import { useState } from "react";
 
-type Props = {
-    data: Product;
-}
 
-export const ProductItem = ({ data }: Props) => {
+
+export const ProductItem = ({ data }) => {
     const [imageUri, setImageUri] = useState(data.image); 
 
     return (
@@ -24,7 +22,7 @@ export const ProductItem = ({ data }: Props) => {
                     style={styles.img}
                     source={{ uri: imageUri }}
                     resizeMode="cover"
-                    onError={() => setImageUri("url_fallback")} 
+                    onError={() => setImageUri("../assets/erro.jpg")} 
                 />
                 <View style={styles.info}>
                     <Text style={styles.title}>{data.title}</Text>

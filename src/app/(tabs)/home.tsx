@@ -9,19 +9,23 @@ import { SeparatorItem } from "../../../components/separatorItem";
 export default function Screen() {
     const [products, setProducts] = useState<Product[]>([]);
 
+
+    //Atualiza a lista de produtos quando o componente é exibido com o useEffect e para de atualizar quando ele sai da tela com o unsubscribe
     useEffect(() => {
         const unsubscribe = subscribeToProducts(setProducts);
         return () => unsubscribe();
     }, []);
 
+
     return (
         <View style={styles.container}>
             <FlatList
-            ItemSeparatorComponent={SeparatorItem }
+                ItemSeparatorComponent={SeparatorItem}
                 data={products}
                 renderItem={({ item }) => <ProductItem data={item} />}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.listContent}
+                
             />
         </View>
     );

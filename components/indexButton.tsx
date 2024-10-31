@@ -5,7 +5,7 @@ type Props = {
     onPress: () => void;
 }
 
-export const Button = ({ title, onPress }: Props) => {
+export const IndexButton = ({ title, onPress }: Props) => {
     return (
         <Pressable onPress={onPress} style={styles.button}>
             <Text style={styles.buttonText}>{title}</Text>
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 25,
         flexDirection: 'row',
-        marginTop: 100,
+        marginTop: 200,
         bottom: 70,
         justifyContent: "center" 
     },

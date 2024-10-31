@@ -1,14 +1,11 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image, StyleSheet, Text, ImageBackground } from "react-native";
-import { Button } from "../../components/button";
+import { IndexButton } from "../../components/indexButton";
+
 import { router } from "expo-router";
 import { useState } from "react";
 
 export default function Screen() {
-
-    
-
-
 
     const start = () => {
         router.replace('/home')
@@ -31,7 +28,7 @@ export default function Screen() {
 
 
                 
-                <Button
+                <IndexButton
                     title="INICIAR"
                     onPress={start}
                 />
