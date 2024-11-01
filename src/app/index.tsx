@@ -1,9 +1,7 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image, StyleSheet, Text, ImageBackground } from "react-native";
 import { IndexButton } from "../../components/indexButton";
-
 import { router } from "expo-router";
-import { useState } from "react";
 
 export default function Screen() {
 

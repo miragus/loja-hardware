@@ -5,15 +5,24 @@ import { useRouter } from 'expo-router';
 import { ListItem } from '../../../components/product-list';
 import firebase from 'firebase/compat';
 
+interface Product {
+    id: string;
+    idCategory: string;
+    image: string;
+    title: string;
+    description: string;
+    price: number;
+}
+
 const Listagem = () => {
-  const [idCategory, setIdCategory] = useState('');
-  const [image, setImage] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [editId, setEditId] = useState("");
-  const [editState, setEditState] = useState("none");
+  const [idCategory, setIdCategory] = useState<string>('');
+  const [image, setImage] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [price, setPrice] = useState<number>(0);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [editId, setEditId] = useState<string>('');
+  const [editState, setEditState] = useState<'none' | 'flex'>('none');
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +30,7 @@ const Listagem = () => {
     return () => unsubscribe();
   }, []);
 
-  const deleteProduct = (id) => {
+  const deleteProduct = (id: string) => {
     Alert.alert(
       "Confirmação",
       "Tem certeza de que deseja excluir este produto?",
@@ -32,8 +41,8 @@ const Listagem = () => {
     );
   };
 
-  const updateProduct = (id, dados) => {
-    if (!dados.idCategory || !dados.image || !dados.title || !dados.description || isNaN(dados.price)) {
+  const updateProduct = (id: string, dados: Partial<Product>) => {
+    if (!dados.idCategory || !dados.image || !dados.title || !dados.description || isNaN(dados.price!)) {
       Alert.alert("Aviso", "Por favor, preencha todos os campos corretamente.");
       return;
     }
@@ -45,7 +54,7 @@ const Listagem = () => {
     closeEdit();
   };
 
-  const showEdit = (id) => {
+  const showEdit = (id: string) => {
     const product = products.find((prod) => prod.id === id);
     if (product) {
       setIdCategory(product.idCategory);
@@ -63,7 +72,7 @@ const Listagem = () => {
     setEditId("");
   };
 
-  const renderProduct = ({ item }) => (
+  const renderProduct = ({ item }: { item: Product }) => (
     <View style={styles.produto}>
       <ListItem data={item} />
       <View style={styles.acoes}>
@@ -80,7 +89,7 @@ const Listagem = () => {
   const editBox = () => (
     <View style={[styles.editContainer, { display: editState }]}>
       <View style={styles.editBox}>
-        <View style={styles.editTitle}>
+        <View>
           <Text style={styles.titletext}>Editar</Text>
         </View>
         <View style={styles.editform}>
@@ -112,7 +121,7 @@ const Listagem = () => {
             style={styles.input}
             placeholder="Preço"
             keyboardType="numeric"
-            onChangeText={text => setPrice(text)}
+            onChangeText={text => setPrice(parseFloat(text) || 0)}
             value={price.toString()}
           />
         </View>
@@ -127,7 +136,7 @@ const Listagem = () => {
               image, 
               title, 
               description, 
-              price: parseFloat(price) || 0
+              price
             })}
           >
             <Text style={styles.editButtonText}>Editar</Text>

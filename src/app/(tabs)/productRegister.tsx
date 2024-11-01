@@ -5,10 +5,7 @@ import 'firebase/compat/firestore';
 import '../../../firebase';
 import { useRouter } from 'expo-router';
 
-
-
-
-const App = () => {
+const ProductRegister = () => {
     const [idCategory, setIdCategory] = useState('');
     const [image, setImage] = useState('');
     const [title, setTitle] = useState('');
@@ -17,99 +14,65 @@ const App = () => {
 
     const router = useRouter();
 
-    const handle = async () => {
+    const handleSubmit = async () => {
         if (!idCategory || !image || !title || !description || !price) {
             alert("Todos os campos devem ser preenchidos!");
             return;
         }
 
         try {
-            const numericPrice = parseFloat(price.trim());
-            const numericCategory = parseFloat(idCategory.trim());
-
+            const numericPrice = parseFloat(price);
+            const numericCategory = parseInt(idCategory);
 
             if (isNaN(numericPrice) || isNaN(numericCategory)) {
                 alert("ID da categoria e preço devem ser números válidos!");
                 return;
             }
 
-            const novoProduto = await firebase.firestore().collection("Products").add({
+            const newProduct = await firebase.firestore().collection("Products").add({
                 idCategory: numericCategory,
-                image: image,
-                title: title,
-                description: description,
-                price: numericPrice
+                image,
+                title,
+                description,
+                price: numericPrice,
             });
 
-            alert("Produto registrado com sucesso! ID: " + novoProduto.id);
-            router.push("../../lista/lista");
-
-            //esvazia os campos apos registrar produto
+            alert("Produto registrado com sucesso! ID: " + newProduct.id);
             setIdCategory('');
             setImage('');
             setTitle('');
             setDescription('');
             setPrice('');
 
+            router.push("../../lista/lista");
+
         } catch (error) {
             console.error("Erro ao registrar produto:", error);
-            alert("Ocorreu um erro ao tentar registrar produto.");
+            alert("Erro ao tentar registrar o produto.");
         }
     };
-
 
     return (
         <View style={styles.container}>
             <View style={styles.form}>
                 <Text style={styles.title}>Criar Produto</Text>
-
-                <TextInput
-                    style={styles.input}
-                    placeholder='Id de categoria'
-                    onChangeText={text => setIdCategory(text)}
-                    value={idCategory}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Nome'
-                    onChangeText={text => setTitle(text)}
-                    value={title}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='URL da imagem'
-                    onChangeText={text => setImage(text)}
-                    value={image}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Descrição'
-                    onChangeText={text => setDescription(text)}
-                    value={description}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Preço (ex: 19.99)'
-                    onChangeText={text => setPrice(text)}
-                    value={price}
-                />
+                <TextInput style={styles.input} placeholder="Id de categoria" value={idCategory} onChangeText={setIdCategory} />
+                <TextInput style={styles.input} placeholder="Nome" value={title} onChangeText={setTitle} />
+                <TextInput style={styles.input} placeholder="URL da imagem" value={image} onChangeText={setImage} />
+                <TextInput style={styles.input} placeholder="Descrição" value={description} onChangeText={setDescription} />
+                <TextInput style={styles.input} placeholder="Preço" value={price} onChangeText={setPrice} keyboardType="numeric" />
             </View>
             <View style={styles.buttons}>
-                <Pressable style={styles.button} onPress={handle}>
+                <Pressable style={styles.button} onPress={handleSubmit}>
                     <Text style={styles.buttonText}>Criar</Text>
                 </Pressable>
-
-
                 <Pressable style={styles.button} onPress={() => router.push("../../lista/lista")}>
                     <Text style={styles.buttonText}>Ver lista</Text>
                 </Pressable>
             </View>
-
-
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -157,4 +120,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default App;
+export default ProductRegister;

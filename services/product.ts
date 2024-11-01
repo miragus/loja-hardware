@@ -1,5 +1,6 @@
 import { data } from "../data";
-import firebase from 'firebase/compat';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore'
 
 
 //pega todos os produtos
@@ -7,8 +8,6 @@ export const getAllProducts = () =>{
     return data.products;
 }
 //pega produtos por id
-// productService.ts
-
 
 export const fetchProductById = async (id: string) => {
     const productRef = firebase.firestore().collection('Products').doc(id); // Supondo que os produtos estejam em uma coleção chamada 'products'
@@ -21,6 +20,22 @@ export const fetchProductById = async (id: string) => {
 };
 
 //pega produtos por categoria
-export const getProductByCategory = (idCategory: number) =>{
-    return data.products.filter(item => item.idCategory === idCategory);
-}
+export const getProductByCategory = async (idCategory: number) => {
+    const snapshot = await firebase.firestore()
+        .collection('Products')
+        .where('idCategory', '==', idCategory)
+        .get();
+
+
+        
+    return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+};
+
+export const fetchAllProducts = async () => {
+    const snapshot = await firebase.firestore().collection('Products').get();
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
