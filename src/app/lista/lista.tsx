@@ -6,12 +6,12 @@ import { ListItem } from '../../../components/product-list';
 import firebase from 'firebase/compat';
 
 interface Product {
-    id: string;
-    idCategory: string;
-    image: string;
-    title: string;
-    description: string;
-    price: number;
+  id: string;
+  idCategory: string;
+  image: string;
+  title: string;
+  description: string;
+  price: number;
 }
 
 const Listagem = () => {
@@ -46,11 +46,11 @@ const Listagem = () => {
       Alert.alert("Aviso", "Por favor, preencha todos os campos corretamente.");
       return;
     }
-  
+
     firebase.firestore().collection('Products').doc(id).update(dados)
       .then(() => Alert.alert("Sucesso", "Produto atualizado com sucesso!"))
       .catch(error => Alert.alert("Erro", error.message));
-    
+
     closeEdit();
   };
 
@@ -96,30 +96,35 @@ const Listagem = () => {
           <TextInput
             style={styles.input}
             placeholder="Id da categoria"
+            placeholderTextColor={'#AAFFAA'}
             onChangeText={text => setIdCategory(text)}
             value={idCategory}
           />
           <TextInput
             style={styles.input}
             placeholder="URL da imagem"
+            placeholderTextColor={'#AAFFAA'}
             onChangeText={text => setImage(text)}
             value={image}
           />
           <TextInput
             style={styles.input}
             placeholder="Nome"
+            placeholderTextColor={'#AAFFAA'}
             onChangeText={text => setTitle(text)}
             value={title}
           />
           <TextInput
             style={styles.input}
             placeholder="Descrição"
+            placeholderTextColor={'#AAFFAA'}
             onChangeText={text => setDescription(text)}
             value={description}
           />
           <TextInput
             style={styles.input}
             placeholder="Preço"
+            placeholderTextColor={'#AAFFAA'}
             keyboardType="numeric"
             onChangeText={text => setPrice(parseFloat(text) || 0)}
             value={price.toString()}
@@ -129,13 +134,13 @@ const Listagem = () => {
           <Pressable style={styles.editButton} onPress={closeEdit}>
             <Text style={styles.editButtonText}>Voltar</Text>
           </Pressable>
-          <Pressable 
-            style={styles.editButton} 
+          <Pressable
+            style={styles.editButton}
             onPress={() => updateProduct(editId, {
-              idCategory, 
-              image, 
-              title, 
-              description, 
+              idCategory,
+              image,
+              title,
+              description,
               price
             })}
           >
@@ -161,12 +166,13 @@ const Listagem = () => {
       </Pressable>
     </View>
   );
-};  
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1E1E1E',
+    
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 50,
@@ -177,6 +183,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#AAFFAA'
   },
   list: {
     flexGrow: 1,
@@ -187,7 +194,8 @@ const styles = StyleSheet.create({
   produto: {
     display: "flex",
     flexDirection: "row",
-    backgroundColor: '#eee',
+    backgroundColor: '#303030',
+
     padding: 10,
     marginVertical: 5,
     width: '90%',
@@ -215,7 +223,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#AAFFAA',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -224,6 +232,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
   },
   editContainer: {
     position: "absolute",
@@ -233,11 +244,10 @@ const styles = StyleSheet.create({
     zIndex: 1
   },
   editBox: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1E1E1E',
     borderRadius: 5,
     width: "80%",
-    aspectRatio: 1,
-    elevation: 5,
+    height:'110%',
     display: 'flex',
     flexDirection: "column",
     alignItems: "center",
@@ -255,7 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   editButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#AAFFAA',
     justifyContent: "center",
     borderRadius: 5,
     alignItems: 'center',
@@ -269,6 +279,7 @@ const styles = StyleSheet.create({
   titletext: {
     fontSize: 24,
     fontWeight: 'bold',
+    color:'#AAFFAA'
   },
   input: {
     paddingHorizontal: 12,
@@ -278,6 +289,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
+    backgroundColor:'#808080'
   },
   editform: {
     alignItems: 'center',

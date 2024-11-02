@@ -9,7 +9,7 @@ export default function CategoryLayout() {
                     title: 'Categorias',
                     headerTitleAlign: 'center',
                     headerStyle: { backgroundColor: '#222222' },
-                    headerTitleStyle: { color: '#CCFFCC' },
+                    headerTitleStyle: { color: '#AAFFAA' },
                 }} />
             <Stack.Screen name="[id]" />
         </Stack>

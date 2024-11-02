@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Image } from 'react-native';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import '../../../firebase';
@@ -55,19 +55,23 @@ const ProductRegister = () => {
     return (
         <View style={styles.container}>
             <View style={styles.form}>
+                <Image
+                source={require('../../../assets/hardRegister.png')}
+                style={{width:50, height: 50, marginBottom:10}}
+                />
                 <Text style={styles.title}>Criar Produto</Text>
-                <TextInput style={styles.input} placeholder="Id de categoria" value={idCategory} onChangeText={setIdCategory} />
-                <TextInput style={styles.input} placeholder="Nome" value={title} onChangeText={setTitle} />
-                <TextInput style={styles.input} placeholder="URL da imagem" value={image} onChangeText={setImage} />
-                <TextInput style={styles.input} placeholder="Descrição" value={description} onChangeText={setDescription} />
-                <TextInput style={styles.input} placeholder="Preço" value={price} onChangeText={setPrice} keyboardType="numeric" />
+                <TextInput style={styles.input} placeholder="Id de categoria" placeholderTextColor={'#fff'} value={idCategory} onChangeText={setIdCategory} />
+                <TextInput style={styles.input} placeholder="Nome" placeholderTextColor={'#fff'} value={title} onChangeText={setTitle} />
+                <TextInput style={styles.input} placeholder="URL da imagem" placeholderTextColor={'#fff'} value={image} onChangeText={setImage} />
+                <TextInput style={styles.input} placeholder="Descrição" placeholderTextColor={'#fff'} value={description} onChangeText={setDescription} />
+                <TextInput style={styles.input} placeholder="Preço" placeholderTextColor={'#fff'} value={price} onChangeText={setPrice} keyboardType="numeric" />
             </View>
             <View style={styles.buttons}>
-                <Pressable style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Criar</Text>
-                </Pressable>
                 <Pressable style={styles.button} onPress={() => router.push("../../lista/lista")}>
                     <Text style={styles.buttonText}>Ver lista</Text>
+                </Pressable>
+                <Pressable style={styles.button} onPress={handleSubmit}>
+                    <Text style={styles.buttonText}>Criar</Text>
                 </Pressable>
             </View>
         </View>
@@ -76,7 +80,7 @@ const ProductRegister = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#303030',
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 100,
@@ -91,8 +95,10 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 20,
+        color:'#AAFFAA'
     },
     input: {
+        backgroundColor: "#1E1E1E",
         width: '65%',
         height: 40,
         marginVertical: 10,
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     button: {
-        backgroundColor: '#007AFF',
+        backgroundColor: '#AAFFAA',
         justifyContent: "center",
         borderRadius: 5,
         alignItems: 'center',
@@ -117,6 +123,9 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 16,
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10
     }
 });
 

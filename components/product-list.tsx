@@ -42,7 +42,7 @@ export const ListItem = ({ data }: Props) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',   
-        borderWidth: 1 
+        borderWidth: 1,
     },
     img: {
         width: 65,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: "#000000",
+        color: "#AAFFAA",
     },
     description: {
         fontSize: 13,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: "#000000",
+        color: "#AAFFAA",
         textAlign: 'center',
         borderRadius: 5,
     },
