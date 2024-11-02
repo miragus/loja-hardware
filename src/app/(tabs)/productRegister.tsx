@@ -56,22 +56,22 @@ const ProductRegister = () => {
         <View style={styles.container}>
             <View style={styles.form}>
                 <Image
-                source={require('../../../assets/hardRegister.png')}
-                style={{width:50, height: 50, marginBottom:10}}
+                    source={require('../../../assets/hardRegister.png')}
+                    style={{ width: 50, height: 50, marginBottom: 10 }}
                 />
-                <Text style={styles.title}>Criar Produto</Text>
-                <TextInput style={styles.input} placeholder="Id de categoria" placeholderTextColor={'#fff'} value={idCategory} onChangeText={setIdCategory} />
-                <TextInput style={styles.input} placeholder="Nome" placeholderTextColor={'#fff'} value={title} onChangeText={setTitle} />
-                <TextInput style={styles.input} placeholder="URL da imagem" placeholderTextColor={'#fff'} value={image} onChangeText={setImage} />
-                <TextInput style={styles.input} placeholder="Descrição" placeholderTextColor={'#fff'} value={description} onChangeText={setDescription} />
-                <TextInput style={styles.input} placeholder="Preço" placeholderTextColor={'#fff'} value={price} onChangeText={setPrice} keyboardType="numeric" />
+                <Text style={styles.title}>Registrar Produto</Text>
+                <TextInput style={styles.input} placeholder="Id de categoria" placeholderTextColor={'#ccc'} value={idCategory} onChangeText={setIdCategory} />
+                <TextInput style={styles.input} placeholder="Nome" placeholderTextColor={'#ccc'} value={title} onChangeText={setTitle} />
+                <TextInput style={styles.input} placeholder="URL da imagem" placeholderTextColor={'#ccc'} value={image} onChangeText={setImage} />
+                <TextInput style={styles.input} placeholder="Descrição" placeholderTextColor={'#ccc'} value={description} onChangeText={setDescription} />
+                <TextInput style={styles.input} placeholder="Preço" placeholderTextColor={'#ccc'} value={price} onChangeText={setPrice} keyboardType="numeric" />
             </View>
             <View style={styles.buttons}>
                 <Pressable style={styles.button} onPress={() => router.push("../../lista/lista")}>
                     <Text style={styles.buttonText}>Ver lista</Text>
                 </Pressable>
                 <Pressable style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Criar</Text>
+                    <Text style={styles.buttonText}>Registrar</Text>
                 </Pressable>
             </View>
         </View>
@@ -95,10 +95,11 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 20,
-        color:'#AAFFAA'
+        color: '#AAFFAA'
     },
     input: {
         backgroundColor: "#1E1E1E",
+        color: '#ccc',
         width: '65%',
         height: 40,
         marginVertical: 10,
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
         textShadowOffset: { width: -1, height: 1 },
-        textShadowRadius: 10
+        textShadowRadius: 5
     }
 });
 

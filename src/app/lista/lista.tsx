@@ -96,35 +96,39 @@ const Listagem = () => {
           <TextInput
             style={styles.input}
             placeholder="Id da categoria"
-            placeholderTextColor={'#AAFFAA'}
+            placeholderTextColor={'#000000'}
             onChangeText={text => setIdCategory(text)}
             value={idCategory}
           />
           <TextInput
             style={styles.input}
             placeholder="URL da imagem"
-            placeholderTextColor={'#AAFFAA'}
+            placeholderTextColor={'#000000'}
+
             onChangeText={text => setImage(text)}
             value={image}
           />
           <TextInput
             style={styles.input}
             placeholder="Nome"
-            placeholderTextColor={'#AAFFAA'}
+            placeholderTextColor={'#000000'}
+
             onChangeText={text => setTitle(text)}
             value={title}
           />
           <TextInput
             style={styles.input}
             placeholder="Descrição"
-            placeholderTextColor={'#AAFFAA'}
+            placeholderTextColor={'#000000'}
+
             onChangeText={text => setDescription(text)}
             value={description}
           />
           <TextInput
             style={styles.input}
             placeholder="Preço"
-            placeholderTextColor={'#AAFFAA'}
+            placeholderTextColor={'#000000'}
+
             keyboardType="numeric"
             onChangeText={text => setPrice(parseFloat(text) || 0)}
             value={price.toString()}
@@ -154,7 +158,7 @@ const Listagem = () => {
   return (
     <View style={styles.container}>
       {editBox()}
-      <Text style={styles.title}>Lista de Produtos</Text>
+      <Text style={styles.title}>Lista de produtos adicionados</Text>
       <FlatList
         data={products}
         renderItem={renderProduct}
@@ -172,7 +176,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1E1E1E',
-    
+
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 50,
@@ -195,12 +199,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     backgroundColor: '#303030',
-
     padding: 10,
     marginVertical: 5,
     width: '90%',
     height: 70,
-    borderRadius: 5,
     alignItems: 'flex-start',
     justifyContent: "space-between"
   },
@@ -211,6 +213,7 @@ const styles = StyleSheet.create({
   acoes: {
     height: "100%",
     gap: 5,
+
   },
   edit: {
     height: 22,
@@ -247,12 +250,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E',
     borderRadius: 5,
     width: "80%",
-    height:'110%',
+    height: '110%',
     display: 'flex',
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     gap: 15
+
   },
   buttons: {
     width: '65%',
@@ -275,11 +279,14 @@ const styles = StyleSheet.create({
   editButtonText: {
     color: '#fff',
     fontSize: 14,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 3
   },
   titletext: {
     fontSize: 24,
     fontWeight: 'bold',
-    color:'#AAFFAA'
+    color: '#AAFFAA'
   },
   input: {
     paddingHorizontal: 12,
@@ -289,7 +296,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    backgroundColor:'#808080'
+    backgroundColor: '#808080'
   },
   editform: {
     alignItems: 'center',

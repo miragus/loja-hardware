@@ -11,7 +11,6 @@ export const ListItem = ({ data }: Props) => {
     const [imageUri, setImageUri] = useState(data.image); 
 
     return (
-        <Link href={`/product/${data.id}`} asChild>
             <Pressable
                 style={({ pressed }) => [
                     styles.container,
@@ -35,14 +34,12 @@ export const ListItem = ({ data }: Props) => {
                 </View>
                 
             </Pressable>
-        </Link>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',   
-        borderWidth: 1,
     },
     img: {
         width: 65,

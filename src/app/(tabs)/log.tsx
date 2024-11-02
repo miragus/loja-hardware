@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 50,
-    backgroundColor: '#1E1E1E', 
+    backgroundColor: '#1E1E1E',
     color: '#FFF',
     borderRadius: 8,
     paddingHorizontal: 10,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     height: 50,
-    backgroundColor: '#AAFFAA', 
+    backgroundColor: '#AAFFAA',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
@@ -79,9 +79,12 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 18,
     fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 20
   },
   forgotText: {
-    color: '#CCCCCC', 
+    color: '#CCCCCC',
     fontSize: 14,
   },
 });

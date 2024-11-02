@@ -1,9 +1,7 @@
 import { Category } from "../types/category";
-import { Product } from "../types/product";
 
 type Data = {
     categories: Category[],
-    products: Product[]
 };
 export const data: Data = {
     categories: [
@@ -34,7 +32,5 @@ export const data: Data = {
         }
 
     ],
-    products: [
         
-    ]
 }
