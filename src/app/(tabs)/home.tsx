@@ -15,7 +15,7 @@ export default function Screen() {
 
     return (
         <View style={styles.container}>
-            {/* Linha separadora central */}
+            {/* linha central */}
             <View style={styles.centralLine} />
             <FlatList
                 ItemSeparatorComponent={SeparatorItem}
@@ -23,7 +23,7 @@ export default function Screen() {
                 renderItem={({ item }) => <ProductItem data={item} />}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2} // Define duas colunas
-                columnWrapperStyle={styles.columnWrapper} // Estilo para espaçamento entre colunas
+                columnWrapperStyle={styles.columnWrapper}
                 contentContainerStyle={styles.listContent}
             />
         </View>

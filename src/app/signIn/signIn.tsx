@@ -10,13 +10,13 @@ const LoginScreen = () => {
     if (email === '' || password === '') {
       Alert.alert('Erro', 'Preencha todos os campos');
     } else {
-      Alert.alert('Sucesso', 'Login realizado!');
+      Alert.alert('Sucesso', 'Conta cadastrada!');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Cadastro de usuário</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -35,16 +35,11 @@ const LoginScreen = () => {
         secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Entrar</Text>
+        <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
-      <View style={{flexDirection: 'row', justifyContent:'space-between', width:'100%'}}>
-      <TouchableOpacity onPress={() => Alert.alert('Recuperar senha', 'It\'s over 😂')}>
-        <Text style={styles.forgotText}>Esqueceu sua senha?</Text>
+      <TouchableOpacity onPress={() => router.push("../(tabs)/log")}>
+        <Text style={styles.SignIn}>Já tenho uma conta</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.push("../../signIn/signIn")}>
-        <Text style={styles.SignIn}>Quero me cadastrar</Text>
-      </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -89,10 +84,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 20
   },
-  forgotText: {
-    color: '#CCCCCC',
-    fontSize: 14,
-  },
+  
   SignIn: {
     color: '#CCCCCC',
     fontSize: 14,

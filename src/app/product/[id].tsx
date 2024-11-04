@@ -32,7 +32,7 @@ export default function ProductDetails() {
     return (
         <SafeAreaView style={styles.container} >
             <Stack.Screen options={{
-                title: 'A TERRA É PLANA',
+                title: 'Produto',
                 headerStyle: { backgroundColor: '#2E2E2E' },
                 headerTintColor: '#CCFFCC'
             }}

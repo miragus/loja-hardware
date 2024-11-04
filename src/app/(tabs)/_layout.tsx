@@ -29,26 +29,26 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="about"
-                options={{
-                    title: 'Sobre mim',
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />
-                }}
-            />
-            <Tabs.Screen
-                name="log"
-                options={{
-                    title: 'Login',
-                    tabBarIcon: ({ color }) => <FontAwesome name="sign-in" size={24} color={color}/>
-                }}
-            />
-            <Tabs.Screen
                 name="productRegister"
                 options={{
                     title: 'Registro',
                     tabBarIcon: ({ color }) => <FontAwesome name="upload" size={24} color={color} />
                 }}
             />
+                <Tabs.Screen
+                    name="log"
+                    options={{
+                        title: 'Login',
+                        tabBarIcon: ({ color }) => <FontAwesome name="sign-in" size={24} color={color}/>
+                    }}
+                />
+                <Tabs.Screen
+                    name="about"
+                    options={{
+                        title: 'Sobre mim',
+                        tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />
+                    }}
+                />
         </Tabs>
     );
 }
