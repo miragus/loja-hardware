@@ -23,7 +23,7 @@ export const ListItem = ({ data }: Props) => {
                     style={styles.img}
                     source={{ uri: imageUri }}
                     resizeMode="cover"
-                    onError={() => setImageUri("../../assets/erro.jpg")} 
+                    onError={() => setImageUri(require("../assets/erro.jpg"))}          
                 />
                 <View>
                 <Text style={styles.title}>{data.title}</Text>

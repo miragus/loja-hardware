@@ -7,7 +7,7 @@ import firebase from 'firebase/compat';
 
 interface Product {
   id: string;
-  idCategory: string;
+  idCategory: number;
   image: string;
   title: string;
   description: string;
@@ -15,7 +15,7 @@ interface Product {
 }
 
 const Listagem = () => {
-  const [idCategory, setIdCategory] = useState<string>('');
+  const [idCategory, setIdCategory] = useState<number>(0);
   const [image, setImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -36,7 +36,9 @@ const Listagem = () => {
       "Tem certeza de que deseja excluir este produto?",
       [
         { text: "Cancelar", style: "cancel" },
-        { text: "Excluir", onPress: () => firebase.firestore().collection('Products').doc(id).delete() }
+        { text: "Excluir", onPress: () => firebase.firestore().collection('Products').doc(id).delete()
+          .then(() => Alert.alert("Sucesso", "Produto deletado com sucesso!"))
+         }
       ]
     );
   };
@@ -57,7 +59,7 @@ const Listagem = () => {
   const showEdit = (id: string) => {
     const product = products.find((prod) => prod.id === id);
     if (product) {
-      setIdCategory(product.idCategory);
+      setIdCategory(product.idCategory); // Agora é number
       setImage(product.image);
       setTitle(product.title);
       setDescription(product.description);
@@ -97,14 +99,14 @@ const Listagem = () => {
             style={styles.input}
             placeholder="Id da categoria"
             placeholderTextColor={'#000000'}
-            onChangeText={text => setIdCategory(text)}
-            value={idCategory}
+            keyboardType="numeric" // Permite entrada numérica
+            onChangeText={text => setIdCategory(parseInt(text) || 0)} // Converte para number
+            value={idCategory.toString()} // Converte para string para exibir
           />
           <TextInput
             style={styles.input}
             placeholder="URL da imagem"
             placeholderTextColor={'#000000'}
-
             onChangeText={text => setImage(text)}
             value={image}
           />
@@ -112,7 +114,6 @@ const Listagem = () => {
             style={styles.input}
             placeholder="Nome"
             placeholderTextColor={'#000000'}
-
             onChangeText={text => setTitle(text)}
             value={title}
           />
@@ -120,7 +121,6 @@ const Listagem = () => {
             style={styles.input}
             placeholder="Descrição"
             placeholderTextColor={'#000000'}
-
             onChangeText={text => setDescription(text)}
             value={description}
           />
@@ -128,7 +128,6 @@ const Listagem = () => {
             style={styles.input}
             placeholder="Preço"
             placeholderTextColor={'#000000'}
-
             keyboardType="numeric"
             onChangeText={text => setPrice(parseFloat(text) || 0)}
             value={price.toString()}

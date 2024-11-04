@@ -44,7 +44,7 @@ const ProductRegister = () => {
             setDescription('');
             setPrice('');
 
-            router.push("../../lista/lista");
+            router.push("../../secondaryList/secondaryList");
 
         } catch (error) {
             console.error("Erro ao registrar produto:", error);
@@ -67,7 +67,7 @@ const ProductRegister = () => {
                 <TextInput style={styles.input} placeholder="Preço" placeholderTextColor={'#ccc'} value={price} onChangeText={setPrice} keyboardType="numeric" />
             </View>
             <View style={styles.buttons}>
-                <Pressable style={styles.button} onPress={() => router.push("../../lista/lista")}>
+                <Pressable style={styles.button} onPress={() => router.replace("../secondaryList/secondaryList")}>
                     <Text style={styles.buttonText}>Ver lista</Text>
                 </Pressable>
                 <Pressable style={styles.button} onPress={handleSubmit}>

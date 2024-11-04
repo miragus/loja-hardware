@@ -23,7 +23,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ data }) => {
             style={styles.img}
             source={{ uri: imageUri }}
             resizeMode="cover"
-            onError={() => setImageUri("../assets/erro.jpg")}
+            onError={() => setImageUri(require("../assets/erro.jpg"))}
           />
           <View style={styles.info}>
             <Text style={styles.title}>{data.title}</Text>

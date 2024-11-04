@@ -9,9 +9,14 @@ export default function Screen() {
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        const unsubscribe = subscribeToProducts(setProducts);
-        return () => unsubscribe();
+        try {
+            const unsubscribe = subscribeToProducts(setProducts);
+            return () => unsubscribe();
+        } catch (error) {
+            console.error("Erro na assinatura dos produtos:", error);
+        }
     }, []);
+    
 
     return (
         <View style={styles.container}>

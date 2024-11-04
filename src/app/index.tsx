@@ -7,6 +7,8 @@ export default function Screen() {
 
     const start = () => {
         router.replace('/home')
+        console.log('redirecionado para home com exito');
+        
     }
 
     return (
